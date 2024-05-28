@@ -19,7 +19,7 @@ function Install()
 {
 echo '未检测到配置文件,开启配置向导...';#第一次运行
 echo '--------------------------------------------------------------------';
-sleep 2 #延时3秒
+sleep 2 #延时2秒
 if ! type git &>/dev/null; then #检测Git
     if type apt &>/dev/null; then
         echo "安装 Git..."
@@ -29,7 +29,7 @@ if ! type git &>/dev/null; then #检测Git
         sudo yum install -y git
     else
         echo "未知的系统,请手动安装 Git。"
-		exit 1
+	exit 1
     fi
 fi
 
@@ -38,8 +38,8 @@ while true; do
     new_email=${new_email//[[:space:]]/}
     if [[ -n $new_email ]]; then
         sed -i "s/?email?/$new_email/g" "$(realpath "$0")"
-		email="$new_email"
-		break # 保存变量并跳出循环
+	email="$new_email"
+	break # 保存变量并跳出循环
     fi
 done
 while true; do
@@ -47,8 +47,8 @@ while true; do
     new_email=${new_username//[[:space:]]/}
     if [[ -n $new_username ]]; then
         sed -i "s/?username?/$new_username/g" "$(realpath "$0")"
-		username=$new_username
-		break
+	username=$new_username
+	break
     fi
 done
 while true; do
@@ -56,8 +56,8 @@ while true; do
     new_Repositories=${new_Repositories//[[:space:]]/}
     if [[ -n $new_Repositories ]]; then
         sed -i "s/?Repositories?/$new_Repositories/g" "$(realpath "$0")"
-		Repositories=$new_Repositories
-		break
+	Repositories=$new_Repositories
+	break
     fi
 done
 while true; do
@@ -76,7 +76,7 @@ while true; do
             echo "指定的目录不是空的，请输入一个空目录。"
         else
             sed -i "s|?filepath?|$new_filepath|g" "$(realpath "$0")"
-			filepath=$new_filepath
+	    filepath=$new_filepath
             break
         fi
     else
@@ -90,7 +90,7 @@ while true; do
     # 检查输入是否为数字
     if [[ $new_day =~ ^[0-9]+$ ]]; then
         sed -i "s/?day?/$new_day/g" "$(realpath "$0")"
-		day=$new_day
+	day=$new_day
         break
     else
         echo "输入无效，请输入一个数字。"
@@ -102,7 +102,7 @@ read -p "是否需要运行GitHub SSH密钥生成绑定向导[Y/N]:" input
 # GitHub SSH密钥生成绑定向导
 if [[ $input == "Y" || $input == "y" ]]; then
 echo 'SSH密钥生成中...';
-sleep 1 #延时1秒 这样才有感觉
+sleep 1 #延时1秒
 ssh-keygen -t rsa -b 4096 -C "$email" -f ~/.ssh/id_rsa -q -N ""
 clear;
 echo '请打开GitHub绑定下面的SSH密钥 (填写至Key内 Title随便)';
@@ -164,7 +164,7 @@ else
 	if ! git rev-parse --verify --quiet $new_date; then
         echo "创建当前日期分支..."
         git checkout --orphan $new_date
-		#git branch -m $new_date
+	#git branch -m $new_date
 	else
         echo "分支已存在,切换到该分支..."
         git checkout $new_date
@@ -177,7 +177,7 @@ else
     #删除旧分支
     git branch -D $old_date &>/dev/null;
     git push origin --delete $old_date &>/dev/null;
-	git gc --prune=now
+    git gc --prune=now
 fi
 echo '--------------------------------------------------------------------';
 }
