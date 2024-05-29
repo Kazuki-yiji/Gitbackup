@@ -118,13 +118,13 @@ Install() {
         sleep 1
     fi
     rm -rf "$filepath/.git"
+    chown -R $(whoami) "$filepath"
     echo '开始拉取仓库...';
     git clone git@github.com:${username}/${Repositories}.git "$filepath" 2>error_yglog.txt || {
         echo "拉取仓库失败!错误日志已保存到error_yglog.txt|查看使用cat error_yglog.txt"
         exit 1
     }
     sed -i "s/????/ok/g" "$(realpath "$0")" #配置完成锁定
-    chown -R $(whoami) "$filepath"
     cd "$filepath"
     cd ~
     echo '--------------------------------------------------------------------'
