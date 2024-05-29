@@ -10,12 +10,12 @@ filepath="?filepath?" #文件路径
 day="?day?" #备份保留天数
 echo 'Please note: GitHub is part of Microsoft';
 echo '--------------------------------------------------------------------';
-echo 'GitHub自动备份 Version 1.0';
+echo 'GitHub自动备份 Version 1.1';
 echo 'https://github.com/yijiniang/Gitbackup';
 echo 'GitHub@yijiniang Email:kazuki@kazami.cn';
 [ "$IFCN" == "CN" ] && echo "警告:CN服务器可能连不上GitHub"
 echo '--------------------------------------------------------------------';
-#Version 1.0
+#Version 1.1
 function Install()
 {
 echo '未检测到配置文件,开启配置向导...';#第一次运行
@@ -24,10 +24,10 @@ sleep 2 #延时2秒
 if ! type git &>/dev/null; then #检测Git
     if type apt &>/dev/null; then
         echo "安装 Git..."
-        sudo apt update && sudo apt install -y git
+        sudo apt update && sudo apt install -y git && sudo apt install git-lfs && git lfs install
     elif type yum &>/dev/null; then
         echo "安装 Git..."
-        sudo yum install -y git
+        yum install -y git && yum install git-lfs && git lfs install
     else
         echo "未知的系统,请手动安装 Git。"
 	exit 1
@@ -171,7 +171,7 @@ else
         git checkout $new_date
 	fi
 	#git checkout $new_date
-    git push -u origin $new_date 
+	git push -u origin $new_date 
 	git add -A #推送所有文件~删除新建修改~
 	git commit -m "$(hostname)•Backups-$(date "+%Y/%m/%d|%H:%M")"
 	git push
