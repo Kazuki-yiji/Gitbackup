@@ -10,12 +10,12 @@ filepath="?filepath?" #文件路径
 day="?day?" #备份保留天数
 echo 'Please note: GitHub is part of Microsoft';
 echo '--------------------------------------------------------------------';
-echo 'GitHub自动备份 Version 1.1';
+echo 'GitHub自动备份 Version 1.2';
 echo 'https://github.com/yijiniang/Gitbackup';
 echo 'GitHub@yijiniang Email:kazuki@kazami.cn';
 [ "$IFCN" == "CN" ] && echo "警告:CN服务器可能连不上GitHub"
 echo '--------------------------------------------------------------------';
-#Version 1.1
+#Version 1.2
 function Install()
 {
 echo '未检测到配置文件,开启配置向导...';#第一次运行
@@ -155,6 +155,12 @@ if [ "$day" = "0" ]; then # eien=永恒=eternal
         git checkout eien
 	fi
 	git push -u origin eien #设置分支
+	#查找所有大于100MB的文件并跟踪
+	find . -size +100M | while read file; do
+	    git lfs track "$file"
+	done
+	#添加.gitattributes文件到暂存区
+	git add .gitattributes
 	git add -A #推送所有文件~删除新建修改~
 	git commit -m "$(hostname)•Backups-$(date "+%Y/%m/%d|%H:%M")"
 	git push
@@ -172,6 +178,10 @@ else
 	fi
 	#git checkout $new_date
 	git push -u origin $new_date 
+	find . -size +100M | while read file; do
+	    git lfs track "$file"
+	done
+	git add .gitattributes
 	git add -A #推送所有文件~删除新建修改~
 	git commit -m "$(hostname)•Backups-$(date "+%Y/%m/%d|%H:%M")"
 	git push
