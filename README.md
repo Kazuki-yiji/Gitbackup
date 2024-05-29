@@ -16,5 +16,5 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/yijiniang/Gitb
 3. 执行脚本后按照步骤即可完成配置！
 4. 配置<a href="https://www.runoob.com/w3cnote/linux-crontab-tasks.html" target="_blank">计划任务</a>，列如添加一个每天02:00备份:
 ```
-0 2 * * * /bin/sh /root/Gitbackup.sh >> /root/Gitbackup.log 2>&1
+0 2 * * * /bin/sh /root/Gitbackup.sh 2>&1 | tee -a /root/Gitbackup.log
 ```
