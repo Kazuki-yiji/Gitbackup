@@ -10,12 +10,12 @@ filepath="?filepath?" #文件路径
 day="?day?" #备份保留天数
 echo 'Please note: GitHub is part of Microsoft';
 echo '--------------------------------------------------------------------';
-echo 'GitHub自动备份 Version 1.2';
+echo 'GitHub自动备份 Version 1.3';
 echo 'https://github.com/yijiniang/Gitbackup';
 echo 'GitHub@yijiniang Email:kazuki@kazami.cn';
-[ "$IFCN" == "CN" ] && echo "警告:CN服务器可能连不上GitHub"
+[ "$IFCN" = "CN" ] && echo "警告:CN服务器可能连不上GitHub"
 echo '--------------------------------------------------------------------';
-#Version 1.2
+#Version 1.3
 function Install()
 {
 echo '未检测到配置文件,开启配置向导...';#第一次运行
@@ -24,16 +24,27 @@ sleep 2 #延时2秒
 if ! type git &>/dev/null; then #检测Git
     if type apt &>/dev/null; then
         echo "安装 Git..."
-        sudo apt update && sudo apt install -y git && sudo apt install git-lfs && git lfs install
+        sudo apt update && sudo apt install -y git
     elif type yum &>/dev/null; then
         echo "安装 Git..."
-        yum install -y git && yum install git-lfs && git lfs install
+        yum install -y git
     else
         echo "未知的系统,请手动安装 Git。"
 	exit 1
     fi
 fi
-
+if ! type git-lfs &>/dev/null; then # 检测Git LFS
+    if type apt &>/dev/null; then
+        echo "安装 Git LFS..."
+        sudo apt install -y git-lfs
+    elif type yum &>/dev/null; then
+        echo "安装 Git LFS..."
+        yum install -y git-lfs
+    else
+        echo "未知的系统，请手动安装 Git LFS。"
+        exit 1
+    fi
+fi
 while true; do
     read -p "请输入GitHub绑定的邮箱: " new_email
     new_email=${new_email//[[:space:]]/}
@@ -101,7 +112,7 @@ done
 
 read -p "是否需要运行GitHub SSH密钥生成绑定向导[Y/N]:" input
 # GitHub SSH密钥生成绑定向导
-if [[ $input == "Y" || $input == "y" ]]; then
+if [[ $input = "Y" || $input = "y" ]]; then
 echo 'SSH密钥生成中...';
 sleep 1 #延时1秒
 ssh-keygen -t rsa -b 4096 -C "$email" -f ~/.ssh/id_rsa -q -N ""
@@ -142,6 +153,7 @@ echo "脚本路径: $(realpath "$0")"
 echo "备份文件夹: $filepath"
 echo '--------------------------------------------------------------------';
 cd $filepath
+git lfs install
 git config push.default matching
 git config user.name "$username"
 git config user.email "$email"
@@ -195,5 +207,5 @@ else
 fi
 echo '--------------------------------------------------------------------';
 }
-[[ "$IFInstall" == "ok" ]] && Bak #开始备份
+[[ "$IFInstall" = "ok" ]] && Bak #开始备份
 [[ "$IFInstall" != "ok" ]] && Install #第一次运行
