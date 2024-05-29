@@ -20,3 +20,6 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/yijiniang/Gitb
 0 2 * * * bash /root/Gitbackup.sh 2>&1 | tee -a /root/Gitbackup.log
 ```
 <a href="https://www.kazami.cn/skill/369.html" target="_blank">带图文的教程</a>
+# 常见错误
+fatal: detected dubious ownership in repository at '/xxx':  
+解决方法，在/home新建目录 或者使用sudo chown -R $(whoami) /目录 给予权限
