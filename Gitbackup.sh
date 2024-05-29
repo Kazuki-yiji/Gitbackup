@@ -10,13 +10,13 @@ filepath="?filepath?" #文件路径
 day="?day?" #备份保留天数
 echo 'Please note: GitHub is part of Microsoft';
 echo '--------------------------------------------------------------------';
-echo 'GitHub自动备份 Version 1.3';
+echo 'GitHub自动备份 Version 1.4';
 echo 'https://github.com/yijiniang/Gitbackup';
 echo 'GitHub@yijiniang Email:kazuki@kazami.cn';
 [ "$IFCN" = "CN" ] && echo "警告:CN服务器可能连不上GitHub"
 echo '--------------------------------------------------------------------';
-#Version 1.3
-function Install()
+#Version 1.4
+Install()
 {
 echo '未检测到配置文件,开启配置向导...';#第一次运行
 echo '--------------------------------------------------------------------';
@@ -146,7 +146,7 @@ echo "例如每天两点备份0 0 2 * * sh $(realpath "$0") 2>&1 | tee /home/Git
 echo '--------------------------------------------------------------------'
 }
 
-function Bak() #备份
+Bak() #备份
 {
 echo "启动备份任务 $(date "+%Y/%m/%d|%H:%M")"
 echo "脚本路径: $(realpath "$0")"
