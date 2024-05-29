@@ -15,7 +15,7 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/yijiniang/Gitb
 1. 拥有一个GitHub账号，登录后<a href="https://github.com/new" target="_blank">创建</a>一个干净全新的私有仓库
 2. 确保这个新创建的仓库是私有状态的，否则您备份的数据将被公开！
 3. 执行脚本后按照步骤即可完成配置！
-4. 配置<a href="https://www.runoob.com/w3cnote/linux-crontab-tasks.html" target="_blank">计划任务</a>，列如添加一个每天02:00备份:
+4. 配置<a href="https://www.runoob.com/w3cnote/linux-crontab-tasks.html" target="_blank">计划任务</a>(crontab -e)，列如添加一个每天02:00备份:
 ```
 0 2 * * * /bin/sh /root/Gitbackup.sh 2>&1 | tee -a /root/Gitbackup.log
 ```
