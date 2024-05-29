@@ -19,3 +19,4 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/yijiniang/Gitb
 ```
 0 2 * * * /bin/sh /root/Gitbackup.sh 2>&1 | tee -a /root/Gitbackup.log
 ```
+<a href="https://www.kazami.cn/skill/369.html" target="_blank">带图文的教程</a>
