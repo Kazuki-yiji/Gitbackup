@@ -11,6 +11,7 @@ day="?day?" #备份保留天数
 echo 'Please note: GitHub is part of Microsoft';
 echo '--------------------------------------------------------------------';
 echo 'GitHub自动备份 Version 1.0';
+echo 'https://github.com/yijiniang/Gitbackup';
 echo 'GitHub@yijiniang Email:kazuki@kazami.cn';
 [ "$IFCN" == "CN" ] && echo "警告:CN服务器可能连不上GitHub"
 echo '--------------------------------------------------------------------';
