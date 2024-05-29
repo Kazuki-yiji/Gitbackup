@@ -164,11 +164,13 @@ if [ "$day" = "0" ]; then # eien=永恒=eternal
 	git add -A #推送所有文件~删除新建修改~
 	git commit -m "$(hostname)•Backups-$(date "+%Y/%m/%d|%H:%M")"
 	git push
+	git lfs prune
+	git gc --prune=now
 else
     #指定天数保留
     new_date="$(date +%Y-%m-%d)" #当前日期分支
     old_date="$(date --date="$day days ago" +%Y-%m-%d)" #需要删除的分支
-	if ! git rev-parse --verify --quiet $new_date; then
+    if ! git rev-parse --verify --quiet $new_date; then
         echo "创建当前日期分支..."
         git checkout --orphan $new_date
 	#git branch -m $new_date
@@ -185,10 +187,11 @@ else
 	git add -A #推送所有文件~删除新建修改~
 	git commit -m "$(hostname)•Backups-$(date "+%Y/%m/%d|%H:%M")"
 	git push
-    #删除旧分支
-    git branch -D $old_date &>/dev/null;
-    git push origin --delete $old_date &>/dev/null;
-    git gc --prune=now
+	#删除旧分支
+	git branch -D $old_date &>/dev/null;
+	git push origin --delete $old_date &>/dev/null;
+	git lfs prune
+	git gc --prune=now
 fi
 echo '--------------------------------------------------------------------';
 }
