@@ -6,17 +6,17 @@ IFInstall="????" #是否初始化
 email="?email?" #GitHub邮箱
 username="?username?" #GitHub用户名
 Repositories="?Repositories?" #GitHub库名称
-filepath="?filepath?" #文件路径
+filepath="?filepath?" #文件路径，请不要更改！
 day="?day?" #备份保留天数
 echo 'Please note: GitHub is part of Microsoft';
 echo '--------------------------------------------------------------------';
-echo 'GitHub自动备份 Version 1.5';
+echo 'GitHub自动备份 Version 1.6';
 echo 'https://github.com/yijiniang/Gitbackup';
 echo 'GitHub@yijiniang Email:kazuki@kazami.cn';
 [ "$IFCN" = "CN" ] && echo "警告:CN服务器可能连不上GitHub"
 echo '--------------------------------------------------------------------';
 
-#Version 1.5
+#Version 1.6
 Install() {
     echo '未检测到配置文件,开启配置向导...'; #第一次运行
     echo '--------------------------------------------------------------------';
@@ -124,7 +124,8 @@ Install() {
         exit 1
     }
     sed -i "s/????/ok/g" "$(realpath "$0")" #配置完成锁定
-    cd $filepath
+    chown -R $(whoami) "$filepath"
+    cd "$filepath"
     cd ~
     echo '--------------------------------------------------------------------'
     printf "警告:请确保您绑定的 $Repositories 为\033[31m私有\033[0m状态 否则您的\033[31m数据将被公开\033[0m\n"
@@ -140,7 +141,7 @@ Bak() { #备份
     echo "脚本路径: $(realpath "$0")"
     echo "备份文件夹: $filepath"
     echo '--------------------------------------------------------------------';
-    cd $filepath
+    cd "$filepath"
     git lfs install &>/dev/null;
     git config push.default matching &>/dev/null;
     git config user.name "$username" &>/dev/null;
