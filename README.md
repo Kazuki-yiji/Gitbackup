@@ -9,9 +9,10 @@ Use GitHub to back up your data
 - 每日可多次备份，备份的次数与您执行脚本的次数有关
 - GitHub的大小限制：单个文件最大2GB，单个储存库最大使用100GB
 
+<a href="https://www.kazami.cn/skill/369.html" target="_blank">带图文的教程</a>
 # 安装教程
 ```
-wget -N --no-check-certificate "https://raw.githubusercontent.com/yijiniang/Gitbackup/main/Gitbackup.sh" && chmod +x Gitbackup.sh && bash Gitbackup.sh
+wget -N --no-check-certificate "https://raw.githubusercontent.com/Kazuki-yiji/Gitbackup/main/Gitbackup.sh" && chmod +x Gitbackup.sh && bash Gitbackup.sh
 ```
 1. 拥有一个GitHub账号，登录后<a href="https://github.com/new" target="_blank">创建</a>一个干净全新的私有仓库
 2. 确保这个新创建的仓库是私有状态的，否则您备份的数据将被公开！
@@ -20,7 +21,10 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/yijiniang/Gitb
 ```
 0 2 * * * bash /root/Gitbackup.sh 2>&1 | tee -a /root/Gitbackup.log
 ```
-<a href="https://www.kazami.cn/skill/369.html" target="_blank">带图文的教程</a>
+# 更新脚本
+```
+wget -N --no-check-certificate "https://raw.githubusercontent.com/Kazuki-yiji/Gitbackup/main/update.sh" && chmod +x update.sh && bash update.sh
+```
 # 常见错误
 fatal: detected dubious ownership in repository at '/xxx':  
 解决方法，在/home新建目录 或者使用以下目录给予目录权限:
