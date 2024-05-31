@@ -136,8 +136,8 @@ Install() {
         git commit --allow-empty -m "请点击左上角(Branch)旁边查看最新分支"
         git push -u origin "default"
 	#rm help.txt
-        cd ~
     fi
+    cd ~
     echo '--------------------------------------------------------------------'
     printf "警告:请确保您绑定的 $Repositories 为\033[31m私有\033[0m状态 否则您的\033[31m数据将被公开\033[0m\n"
     echo "配置完毕!下次执行时就会开始备份"
