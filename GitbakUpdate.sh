@@ -1,4 +1,5 @@
 #!/bin/bash
+clear;
 curl -Ls https://raw.githubusercontent.com/Kazuki-yiji/Gitbackup/main/Gitbackup.sh | sed -n "/echo 'Please note: GitHub is part of Microsoft';/,/Install #第一次运行/p" > new_gdata.txt
 #使用临时文件中的数据替换原脚本中的内容
 sed -i "/echo 'Please note: GitHub is part of Microsoft';/,/Install #第一次运行/{/echo 'Please note: GitHub is part of Microsoft';/b;/Install #第一次运行/!d;};/Install #第一次运行/r new_gdata.txt" Gitbackup.sh
