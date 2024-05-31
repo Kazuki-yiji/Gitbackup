@@ -10,13 +10,13 @@ filepath="?filepath?" #文件路径，请不要更改！
 day="?day?" #备份保留天数
 echo 'Please note: GitHub is part of Microsoft';
 echo '--------------------------------------------------------------------';
-echo 'GitHub自动备份 Version 1.6';
-echo 'https://github.com/yijiniang/Gitbackup';
-echo 'GitHub@yijiniang Email:kazuki@kazami.cn';
+echo 'GitHub自动备份 Version 1.7';
+echo 'https://github.com/Kazuki-yiji/Gitbackup';
+echo 'GitHub@Kazuki-yiji Email:kazuki@kazami.cn';
 [ "$IFCN" = "CN" ] && echo "警告:CN服务器可能连不上GitHub"
 echo '--------------------------------------------------------------------';
 
-#Version 1.6
+#Version 1.7
 Install() {
     echo '未检测到配置文件,开启配置向导...'; #第一次运行
     echo '--------------------------------------------------------------------';
@@ -126,7 +126,18 @@ Install() {
     }
     sed -i "s/????/ok/g" "$(realpath "$0")" #配置完成锁定
     cd "$filepath"
-    cd ~
+    git config user.name "$username" &>/dev/null;
+    git config user.email "$email" &>/dev/null;
+    #为新建的库创建一个分支
+    if [ -z "$(git branch)" ] && [ "$day" -ne 0 ]; then
+        export LANG=C.UTF-8
+        git checkout --orphan "default"
+        #echo -e "说明\n请点击左上角(Branch)旁边查看最新分支" >> help.txt
+        git commit --allow-empty -m "请点击左上角(Branch)旁边查看最新分支"
+        git push -u origin "default"
+	#rm help.txt
+        cd ~
+    fi
     echo '--------------------------------------------------------------------'
     printf "警告:请确保您绑定的 $Repositories 为\033[31m私有\033[0m状态 否则您的\033[31m数据将被公开\033[0m\n"
     echo "配置完毕!下次执行时就会开始备份"
@@ -175,7 +186,7 @@ Bak() { #备份
             git commit --allow-empty -m "$(hostname)•建立新分支:$(date "+%Y/%m/%d|%H:%M")"
             git push -u origin $new_date
         else
-			echo "分支已存在,切换到该分支..."
+            echo "分支已存在,切换到该分支..."
             git checkout $new_date
         fi
         git push -u origin $new_date 
