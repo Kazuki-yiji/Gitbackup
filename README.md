@@ -23,7 +23,7 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/Kazuki-yiji/Gi
 ```
 # 更新脚本
 ```
-wget -N --no-check-certificate "https://raw.githubusercontent.com/Kazuki-yiji/Gitbackup/main/GitbakUpdate.sh" && chmod +x update.sh && bash update.sh
+wget -N --no-check-certificate "https://raw.githubusercontent.com/Kazuki-yiji/Gitbackup/main/GitbakUpdate.sh" && chmod +x GitbakUpdate.sh && bash GitbakUpdate.sh
 ```
 # 常见错误
 fatal: detected dubious ownership in repository at '/xxx':  
